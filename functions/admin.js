@@ -35,7 +35,7 @@ export async function onRequestGet(context) {
   try {
     // List first 50 Facebook users using the correct KV binding and prefix
     const facebookUsers = await context.env.facebook.list({
-      prefix: '',  // No prefix needed since we're already in the facebook KV namespace
+      prefix: 'email',  // No prefix needed since we're already in the facebook KV namespace
       limit: 50
     });
 
