@@ -139,3 +139,48 @@ body.sci-fi-theme {
     text-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
     letter-spacing: 2px;
 }
+
+/* Responsive layout adjustments */
+.sci-fi-form-container {
+    background-color: rgba(16, 16, 32, 0.7);
+    border: 1px solid var(--sci-fi-border);
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+    max-width: 500px; /* Limits form width on large screens */
+    margin: 0 auto; /* Centers form on mobile */
+}
+
+@media (min-width: 768px) { /* Bootstrap's md breakpoint */
+    .sci-fi-form-container {
+        margin-left: 2rem; /* Space between heading and form */
+        margin-right: 0;
+        max-width: none;
+    }
+    
+    .sci-fi-theme h1 {
+        text-align: left;
+        padding-left: 2rem;
+    }
+}
+
+/* Ensure font consistency */
+.sci-fi-theme h1 {
+    font-family: 'Audiowide', monospace !important;
+    color: var(--sci-fi-accent) !important;
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+/* Adjust container padding for mobile */
+@media (max-width: 767px) {
+    .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .sci-fi-theme h1 {
+        text-align: center;
+        font-size: 2.5rem;
+    }
+}
