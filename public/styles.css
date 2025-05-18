@@ -132,3 +132,10 @@ body.sci-fi-theme {
     /* Removed max-width and height to display at native size */
     filter: drop-shadow(0 0 5px var(--sci-fi-accent)); /* Add a subtle glow */
 }
+
+/* Heading Styling */
+.sci-fi-theme h1 {
+    color: var(--sci-fi-accent);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
+    letter-spacing: 2px;
+}
