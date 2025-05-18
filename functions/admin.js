@@ -35,7 +35,7 @@ export async function onRequestGet(context) {
   try {
     // List first 50 Facebook users using the correct KV binding and prefix
     const facebookUsers = await context.env.facebook.list({
-      prefix: 'facebook.',
+      prefix: '',  // No prefix needed since we're already in the facebook KV namespace
       limit: 50
     });
 
@@ -44,13 +44,13 @@ export async function onRequestGet(context) {
       try {
         const userData = await context.env.facebook.get(key.name, 'json');
         return {
-          id: key.name.replace('facebook.', ''), // Extract Facebook ID
+          id: key.name, // Keys are raw Facebook IDs
           ...userData,
           created: new Date(key.metadata.createdOn).toISOString()
         };
       } catch (e) {
         return { 
-          id: key.name.replace('facebook.', ''),
+          id: key.name,
           error: "Malformed user data",
           raw: await context.env.facebook.get(key.name, 'text')
         };
