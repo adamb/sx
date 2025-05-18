@@ -31,34 +31,47 @@ export async function onRequestGet(context) {
     return new Response('Invalid authorization header', { status: 401 });
   }
 
-  // Get list of all subscribers from KV
+  // Get list of Facebook users from KV
   try {
-    // Fetch the list of all subscriber emails
-    const allSubscribersList = await context.env.MAILING_LIST.get('all_subscribers');
-    
-    if (!allSubscribersList) {
-      return new Response(JSON.stringify({ subscribers: [] }), {
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
+    // List first 50 Facebook users using the correct KV binding and prefix
+    const facebookUsers = await context.env.facebook.list({
+      prefix: 'facebook.',
+      limit: 50
+    });
 
-    const emailList = JSON.parse(allSubscribersList);
+    // Fetch details for each Facebook user
+    const userPromises = facebookUsers.keys.map(async (key) => {
+      try {
+        const userData = await context.env.facebook.get(key.name, 'json');
+        return {
+          id: key.name.replace('facebook.', ''), // Extract Facebook ID
+          ...userData,
+          created: new Date(key.metadata.createdOn).toISOString()
+        };
+      } catch (e) {
+        return { 
+          id: key.name.replace('facebook.', ''),
+          error: "Malformed user data",
+          raw: await context.env.facebook.get(key.name, 'text')
+        };
+      }
+    });
+
+    const users = await Promise.all(userPromises);
     
-    // Fetch details for each subscriber (can be done in parallel)
-    const subscriberPromises = emailList.map(email => 
-      context.env.MAILING_LIST.get(email).then(data => JSON.parse(data))
-    );
-    
-    const subscribers = await Promise.all(subscriberPromises);
-    
-    // Return subscribers as JSON
-    return new Response(JSON.stringify({ subscribers }, null, 2), {
+    return new Response(JSON.stringify({
+      count: users.length,
+      facebookUsers: users
+    }, null, 2), {
       headers: { 'Content-Type': 'application/json' }
     });
     
   } catch (e) {
-    console.error("Error fetching subscribers:", e);
-    return new Response(JSON.stringify({ error: "Failed to retrieve subscribers" }), {
+    console.error("Error fetching Facebook users:", e);
+    return new Response(JSON.stringify({ 
+      error: "Failed to retrieve Facebook users",
+      details: e.message
+    }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });
