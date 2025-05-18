@@ -10,7 +10,7 @@
 body.sci-fi-theme {
     background-color: var(--sci-fi-bg);
     color: var(--sci-fi-text);
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Audiowide', 'Courier New', Courier, monospace;
     padding: 2rem;
     min-height: 100vh;
     display: flex;
