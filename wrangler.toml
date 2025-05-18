@@ -1,4 +1,4 @@
-name = "htmx"
+name = "sx"
 compatibility_date = "2025-03-21"
 pages_build_output_dir = "./public"
 
