@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTMX on Cloudflare</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="sci-fi-theme">
+    <div class="text-center pt-4"> <!-- Added container for logo -->
+        <img src="/images/code-pr_logo.png" alt="Code PR Logo" class="logo-image mb-4">
+    </div>
+    <div id="auth-section" class="container mt-3 text-center"> <!-- Reduced margin-top -->
+        <p class="mb-4">Join our mailing list to keep up with Holberton Coding School and other tech related events.</p>
+        <!-- Form moved directly here, added Bootstrap validation -->
+        <form hx-post="/login" hx-target="#auth-section" hx-swap="outerHTML" class="mb-3 needs-validation" novalidate>
+          <div class="mb-3 text-start position-relative"> <!-- Added position-relative for feedback positioning -->
+            <label for="nameInput" class="form-label">Name</label>
+            <input type="text" class="form-control" id="nameInput" name="name" required placeholder="Enter your full name">
+            <div class="invalid-tooltip d-none"> <!-- Hidden by default -->
+              Please enter your name.
+            </div>
+          </div>
+          <div class="mb-3 text-start position-relative">
+            <label for="emailInput" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="emailInput" name="email" required placeholder="skynet.initiator@cyberdyne.com">
+             <div class="invalid-tooltip d-none"> <!-- Hidden by default -->
+              Please enter a valid email address.
+            </div>
+          </div>
+          <div class="mb-3 text-start position-relative">
+            <label for="phoneInput" class="form-label">Phone Number</label>
+            <!-- Added pattern for basic phone structure (allows digits, +, -, (), spaces, 7-15 chars total) -->
+            <input type="tel" class="form-control" id="phoneInput" name="phone" required placeholder="+1-555-123-4567" pattern="^[\d\s+()-]{7,15}$">
+             <div class="invalid-tooltip d-none"> <!-- Hidden by default -->
+              Please enter a valid phone number (7-15 digits/chars).
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Join List</button>
+          <!-- Removed Cancel button as the form is always visible now -->
+        </form>
+    </div>
+    <!-- Bootstrap JS Bundle needed for validation UI -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+      // Custom validation script for HTMX form
+      (() => {
+        'use strict'
+        // Find the form
+        const form = document.querySelector('.needs-validation');
+
+        if (form) {
+          // Get all tooltip elements
+          const tooltips = form.querySelectorAll('.invalid-tooltip');
+          
+          // Initial state - hide all tooltips
+          tooltips.forEach(tooltip => {
+            tooltip.classList.add('d-none');
+          });
+          
+          // When Join List button is clicked (form submission attempted)
+          form.addEventListener('htmx:beforeRequest', function (event) {
+            // Reset all tooltips to hidden
+            tooltips.forEach(tooltip => {
+              tooltip.classList.add('d-none');
+            });
+            
+            // Check form validity
+            if (!form.checkValidity()) {
+              // Prevent the HTMX request if invalid
+              event.preventDefault();
+              
+              // Add styling to invalid inputs
+              form.classList.add('was-validated');
+              
+              // Only show tooltips for invalid fields
+              form.querySelectorAll('input:invalid').forEach(invalidInput => {
+                // Find the tooltip that follows this input
+                const tooltip = invalidInput.nextElementSibling;
+                if (tooltip && tooltip.classList.contains('invalid-tooltip')) {
+                  tooltip.classList.remove('d-none');
+                }
+              });
+            }
+          });
+          
+          // Hide tooltips when user starts typing in a field
+          form.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', function() {
+              // Find this input's tooltip and hide it
+              const tooltip = this.nextElementSibling;
+              if (tooltip && tooltip.classList.contains('invalid-tooltip')) {
+                tooltip.classList.add('d-none');
+              }
+            });
+          });
+        }
+      })()
+    </script>
+</body>
+</html>

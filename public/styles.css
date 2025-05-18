@@ -1,0 +1,134 @@
+/* Sci-Fi Theme */
+:root {
+    --sci-fi-bg: #0a0a1a;
+    --sci-fi-text: #e0e0e0;
+    --sci-fi-accent: #00f2ff;
+    --sci-fi-accent-dark: #00aacc;
+    --sci-fi-border: #334;
+}
+
+body.sci-fi-theme {
+    background-color: var(--sci-fi-bg);
+    color: var(--sci-fi-text);
+    font-family: 'Courier New', Courier, monospace;
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Ensure footer (if any) goes below */
+}
+
+/* Keep Bootstrap container but adjust for theme */
+.sci-fi-theme .container {
+    background-color: rgba(16, 16, 32, 0.7); /* Slightly lighter bg */
+    border: 1px solid var(--sci-fi-border);
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+}
+
+/* Style Bootstrap buttons */
+.sci-fi-theme .btn-primary {
+    background-color: transparent;
+    border-color: var(--sci-fi-accent);
+    color: var(--sci-fi-accent);
+    transition: all 0.3s ease;
+}
+
+.sci-fi-theme .btn-primary:hover,
+.sci-fi-theme .btn-primary:focus {
+    background-color: var(--sci-fi-accent);
+    border-color: var(--sci-fi-accent);
+    color: var(--sci-fi-bg);
+    box-shadow: 0 0 10px var(--sci-fi-accent);
+}
+
+.sci-fi-theme .btn-secondary,
+.sci-fi-theme .btn-outline-secondary {
+    background-color: transparent;
+    border-color: var(--sci-fi-border);
+    color: var(--sci-fi-text);
+    transition: all 0.3s ease;
+}
+
+.sci-fi-theme .btn-secondary:hover,
+.sci-fi-theme .btn-secondary:focus,
+.sci-fi-theme .btn-outline-secondary:hover,
+.sci-fi-theme .btn-outline-secondary:focus {
+    background-color: var(--sci-fi-border);
+    border-color: var(--sci-fi-border);
+    color: var(--sci-fi-accent);
+    box-shadow: 0 0 5px var(--sci-fi-border);
+}
+
+/* Style form elements */
+.sci-fi-theme .form-label {
+    color: var(--sci-fi-accent);
+}
+
+.sci-fi-theme .form-control {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--sci-fi-border);
+    color: var(--sci-fi-text);
+}
+
+.sci-fi-theme .form-control:focus {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: var(--sci-fi-accent);
+    color: var(--sci-fi-text);
+    box-shadow: 0 0 8px rgba(0, 242, 255, 0.3);
+}
+
+.sci-fi-theme .form-control::placeholder {
+    color: #889;
+}
+
+/* Style invalid form fields */
+.sci-fi-theme .form-control.is-invalid {
+    border-color: #dc3545; /* Bootstrap's default danger color */
+    box-shadow: 0 0 8px rgba(220, 53, 69, 0.4); /* Add a red glow */
+}
+/* Ensure the text error message is visible */
+.sci-fi-theme .text-danger {
+    color: #dc3545 !important; /* Ensure Bootstrap danger color is used */
+}
+
+/* Ensure focus styles override invalid styles if focused, but keep indication */
+.sci-fi-theme .form-control.is-invalid:focus {
+    border-color: #dc3545; /* Keep border red on focus */
+    box-shadow: 0 0 8px rgba(220, 53, 69, 0.6); /* Enhance red glow on focus */
+}
+
+/* Style Bootstrap invalid tooltip */
+.sci-fi-theme .invalid-tooltip {
+    display: none; /* Hide by default */
+    background-color: rgba(220, 53, 69, 0.9); /* Red background */
+    color: white;
+    border-radius: 4px;
+    padding: .25rem .5rem;
+    font-size: .875em;
+    /* Position adjustments might be needed depending on exact layout */
+    z-index: 10; /* Ensure it's above the input */
+}
+
+/* Only show validation messages for invalid inputs after form submission attempt */
+.sci-fi-theme .was-validated .form-control:invalid ~ .invalid-tooltip {
+    display: block;
+}
+
+
+/* Logged-in message */
+.sci-fi-theme .logged-in-message p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1em;
+}
+
+.sci-fi-theme .logged-in-message strong {
+    color: var(--sci-fi-accent);
+    font-weight: normal; /* Monospace fonts often look bold already */
+}
+
+/* Logo Styling */
+.logo-image {
+    /* Removed max-width and height to display at native size */
+    filter: drop-shadow(0 0 5px var(--sci-fi-accent)); /* Add a subtle glow */
+}

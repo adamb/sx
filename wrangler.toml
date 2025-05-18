@@ -1,0 +1,10 @@
+name = "htmx"
+compatibility_date = "2025-03-21"
+pages_build_output_dir = "./public"
+
+# KV namespace for storing mailing list subscribers
+[[kv_namespaces]]
+binding = "MAILING_LIST"
+id = "c2252d812600424dbe4ae53cfcd586f7"
+
+
