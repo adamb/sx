@@ -2,9 +2,15 @@ name = "sx"
 compatibility_date = "2025-03-21"
 pages_build_output_dir = "./public"
 
-# KV namespace for storing mailing list subscribers
-[[kv_namespaces]]
-binding = "MAILING_LIST"
-id = "c2252d812600424dbe4ae53cfcd586f7"
+
+kv_namespaces = [
+  { binding = "emailtokens", id = "cd9fc0d5a86840979554eb3479041647" },
+  { binding = "facebook",    id = "dbca1610dd8a4f709516350aab6b2eb8" },
+  { binding = "predictions", id = "3ed2312cba1b4660ad9db679446c843d" },
+  { binding = "replicate_status", id = "c776c452ac0d4e94b2bce2546feafcc2" },
+  { binding = "MAGIC_LINKS", id = "44cbde0a86ae4c8c98fad81826c25c22" },
+  { binding = "SESSIONS", id = "f40471773d0f4920b20ec197c16a5cef" },
+  { binding = "MAILING_LIST", id = "c2252d812600424dbe4ae53cfcd586f7"}
+]
 
 
