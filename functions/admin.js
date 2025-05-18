@@ -24,7 +24,7 @@ export async function onRequestGet(context) {
     const [username, password] = decodedCreds.split(':');
     
     // Simple hardcoded credentials (replace with secure authentication in production)
-    if (username !== 'admin' || password !== 'password123') {
+    if (username !== 'admin' || password !== 'admin') {
       return new Response('Invalid credentials', { status: 401 });
     }
   } catch (e) {
